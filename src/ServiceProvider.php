@@ -9,7 +9,7 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register()
     {
-        $configPath = __DIR__ . '/../config/laravelunused.php';
+        $configPath = __DIR__.'/../config/laravelunused.php';
 
         $this->mergeConfigFrom($configPath, 'laravelunused');
     }
@@ -28,20 +28,20 @@ class ServiceProvider extends BaseServiceProvider
     public function publishRoutes()
     {
         $routeConfig = [
-            'namespace' => 'TypeHints\Unused\Controllers',
-            'prefix' => $this->app['config']->get('laravelunused.route_prefix'),
+            'namespace'  => 'TypeHints\Unused\Controllers',
+            'prefix'     => $this->app['config']->get('laravelunused.route_prefix'),
             'middleware' => $this->app['config']->get('laravelunused.middleware'),
         ];
 
         $this->app['router']->group($routeConfig, function ($router) {
             $router->get('/{view?}', [
                 'uses' => 'LaravelUnusedController',
-                'as' => 'laravelunused.dashboard',
+                'as'   => 'laravelunused.dashboard',
             ])->where('view', '(.*)');
 
             $router->delete('/delete/{view}', [
                 'uses' => 'LaravelUnusedController@delete',
-                'as' => 'laravelunused.delete',
+                'as'   => 'laravelunused.delete',
             ]);
         });
     }
@@ -66,8 +66,8 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * @return void
      */
-    protected function publishConfig() : void
+    protected function publishConfig(): void
     {
-        $this->publishes([__DIR__ . '/../config/laravelunused.php' => config_path('laravelunused.php')], 'config');
+        $this->publishes([__DIR__.'/../config/laravelunused.php' => config_path('laravelunused.php')], 'config');
     }
 }

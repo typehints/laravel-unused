@@ -1,4 +1,5 @@
 <?php
+
 namespace TypeHints\Unused\Transformers;
 
 use TypeHints\Unused\Parser\ViewParser;
@@ -28,19 +29,19 @@ class ViewTransformer
     public function transform()
     {
         return [
-            'route' => $this->getRoute(),
-            'views' => $this->getViews(),
+            'route'    => $this->getRoute(),
+            'views'    => $this->getViews(),
             'children' => $this->viewParser->getChildren(),
-            'parent' => $this->getParent(),
-            'action' => $this->getActionContent(),
-            'errors' => $this->getErrors()
+            'parent'   => $this->getParent(),
+            'action'   => $this->getActionContent(),
+            'errors'   => $this->getErrors(),
         ];
     }
 
     /**
      * @return array
      */
-    public function getViews() : array
+    public function getViews(): array
     {
         return $this->views;
     }
@@ -48,7 +49,7 @@ class ViewTransformer
     /**
      * @return array
      */
-    public function getErrors() : array
+    public function getErrors(): array
     {
         return $this->viewParser->getAction()->getErrors();
     }
@@ -70,7 +71,7 @@ class ViewTransformer
     /**
      * @return array
      */
-    public function getParent() : array
+    public function getParent(): array
     {
         return $this->viewParser->getParent();
     }
@@ -78,14 +79,14 @@ class ViewTransformer
     /**
      * @return array
      */
-    public function getRoute() : array
+    public function getRoute(): array
     {
         return $this->viewParser->getAction()->getRoute();
     }
 
     /**
      * @param string $view
-     * @param int $count
+     * @param int    $count
      */
     public function setViewCount(string $view, int $count)
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace TypeHints\Unused\Analyzer;
 
 use Illuminate\Filesystem\Filesystem;
@@ -6,13 +7,12 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use TypeHints\Unused\Analyzer\getActionContent;
-use TypeHints\Unused\Transformers\ViewTransformer;
 use TypeHints\Unused\Parser\Action\ClosureParser;
 use TypeHints\Unused\Parser\Action\ControllerParser;
 use TypeHints\Unused\Parser\Action\ParserActionInterface;
 use TypeHints\Unused\Parser\ParserInterface;
 use TypeHints\Unused\Parser\ViewParser;
+use TypeHints\Unused\Transformers\ViewTransformer;
 
 class ViewAnalyzer
 {
@@ -43,7 +43,7 @@ class ViewAnalyzer
         $view = str_replace('.', '/', $view);
 
         foreach (config('view.paths') as $path) {
-            $viewPath = $path . '/'. $view . '.blade.php';
+            $viewPath = $path.'/'.$view.'.blade.php';
 
             if ($filesystem->exists($viewPath)) {
                 $filesystem->delete($viewPath);
@@ -66,7 +66,7 @@ class ViewAnalyzer
         );
     }
 
-    protected function fetchUsedViews() : array
+    protected function fetchUsedViews(): array
     {
         return array_map(function ($route) {
             return $this->generateViewTransformer($route);
@@ -74,10 +74,11 @@ class ViewAnalyzer
     }
 
     /**
-     * @param  Route $route
+     * @param Route $route
+     *
      * @return TypeHints\Unused\Transformers\ViewTransformer
      */
-    protected function generateViewTransformer(Route $route) : ViewTransformer
+    protected function generateViewTransformer(Route $route): ViewTransformer
     {
         return new ViewTransformer($this->parse($route));
     }
@@ -85,7 +86,7 @@ class ViewAnalyzer
     /**
      * @return array
      */
-    protected function getAllViews() : array
+    protected function getAllViews(): array
     {
         $filesystem = new Filesystem();
 
@@ -105,10 +106,11 @@ class ViewAnalyzer
     }
 
     /**
-     * @param  Route $route
+     * @param Route $route
+     *
      * @return TypeHints\Unused\Parser\ViewParser
      */
-    protected function parse(Route $route) : ViewParser
+    protected function parse(Route $route): ViewParser
     {
         return $this->viewParser(
             $this->actionParser($route)
@@ -116,10 +118,11 @@ class ViewAnalyzer
     }
 
     /**
-     * @param  Route $route
+     * @param Route $route
+     *
      * @return TypeHints\Unused\Parser\Action\ParserActionInterface
      */
-    protected function actionParser(Route $route) : ParserActionInterface
+    protected function actionParser(Route $route): ParserActionInterface
     {
         if (array_key_exists('controller', $route->getAction())) {
             return $this->controllerParser($route)->parse();
@@ -129,28 +132,31 @@ class ViewAnalyzer
     }
 
     /**
-     * @param  Route $route
+     * @param Route $route
+     *
      * @return TypeHints\Unused\Parser\Action\ParserActionInterface
      */
-    protected function controllerParser(Route $route) : ParserActionInterface
+    protected function controllerParser(Route $route): ParserActionInterface
     {
         return new ControllerParser($route);
     }
 
     /**
-     * @param  Route $route
+     * @param Route $route
+     *
      * @return TypeHints\Unused\Parser\Action\ParserActionInterface
      */
-    protected function closureParser(Route $route) : ParserActionInterface
+    protected function closureParser(Route $route): ParserActionInterface
     {
         return new ClosureParser($route);
     }
 
     /**
      * @param ParserActionInterface $content
+     *
      * @return TypeHints\Unused\Parser\ParserInterface
      */
-    protected function viewParser(ParserActionInterface $content) : ParserInterface
+    protected function viewParser(ParserActionInterface $content): ParserInterface
     {
         return new ViewParser($content);
     }
@@ -158,7 +164,7 @@ class ViewAnalyzer
     /**
      * @return array
      */
-    public function getUnusedViews() :array
+    public function getUnusedViews(): array
     {
         return array_values($this->unusedViews);
     }
@@ -166,7 +172,7 @@ class ViewAnalyzer
     /**
      * @return array
      */
-    public function getUsedViews() :array
+    public function getUsedViews(): array
     {
         return array_map(function ($usedView) {
             return $usedView->transform();
@@ -176,7 +182,7 @@ class ViewAnalyzer
     /**
      * @param $usedViews
      */
-    public function retrieveViewCounts(Collection $usedViews) : void
+    public function retrieveViewCounts(Collection $usedViews): void
     {
         $usedViewCountValues = array_count_values($usedViews->toArray());
 

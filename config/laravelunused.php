@@ -4,6 +4,6 @@ return [
     'route_prefix' => 'laravelunused',
 
     'middleware' => [
-        TypeHints\Unused\Middleware\LaravelUnusedMiddleware::class
-    ]
+        TypeHints\Unused\Middleware\LaravelUnusedMiddleware::class,
+    ],
 ];

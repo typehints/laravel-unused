@@ -4,10 +4,6 @@ namespace TypeHints\Unused\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Routing\Router;
-use Symfony\Component\VarDumper\Cloner\Data;
-use Symfony\Component\VarDumper\Dumper\HtmlDumper;
-use Symfony\Component\VarDumper\VarDumper;
 use TypeHints\Unused\Analyzer\ViewAnalyzer;
 
 class LaravelUnusedController extends Controller
@@ -24,9 +20,9 @@ class LaravelUnusedController extends Controller
         $viewAnalyzer = $this->viewAnalyzer->analyze();
 
         return view('laravelunused::dashboard', [
-            'usedViews' => $viewAnalyzer->getUsedViews(),
-            'unusedViews' => $viewAnalyzer->getUnusedViews(),
-            'laravelUnusedScriptVariables' => config('laravelunused')
+            'usedViews'                    => $viewAnalyzer->getUsedViews(),
+            'unusedViews'                  => $viewAnalyzer->getUnusedViews(),
+            'laravelUnusedScriptVariables' => config('laravelunused'),
         ]);
     }
 

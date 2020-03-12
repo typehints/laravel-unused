@@ -2,7 +2,6 @@
 
 namespace TypeHints\Unused\Tests;
 
-use Illuminate\Filesystem\Filesystem;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use TypeHints\Unused\LaravelUnusedServiceProvider;
 
