@@ -35,25 +35,25 @@ returnview('welcome');
 
         $controllerContent = $controllerParser->getContent();
 
-        $this->assertEquals("welcome", $controllerContent['view']);
+        $this->assertEquals('welcome', $controllerContent['view']);
     }
 
     protected function routeClosureExample()
     {
         return new Route(['GET'], '/', [
-            'uses' => 'TypeHints\\Unused\\Tests\\Parser\\ExampleTestsController@index',
-            'controller' => 'TypeHints\\Unused\\Tests\\Parser\\ExampleTestsController'
+            'uses'       => 'TypeHints\\Unused\\Tests\\Parser\\ExampleTestsController@index',
+            'controller' => 'TypeHints\\Unused\\Tests\\Parser\\ExampleTestsController',
         ]);
     }
 
     protected function routeViewControllerExample()
     {
         $route = new Route(['GET'], '/', [
-            'uses' => '\Illuminate\Routing\ViewController@__invoke',
-            'controller' => '\Illuminate\Routing\ViewController'
+            'uses'       => '\Illuminate\Routing\ViewController@__invoke',
+            'controller' => '\Illuminate\Routing\ViewController',
         ]);
 
-        $route->bind(new Request);
+        $route->bind(new Request());
 
         $route->defaults('view', 'welcome');
 

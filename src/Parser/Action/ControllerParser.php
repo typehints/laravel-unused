@@ -2,12 +2,9 @@
 
 namespace TypeHints\Unused\Parser\Action;
 
-use Illuminate\Container\Container;
 use Illuminate\Http\Request;
-use Illuminate\Routing\ControllerDispatcher;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
-use TypeHints\Unused\Parser\ViewParser;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -39,7 +36,7 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return TypeHints\Unused\Parser\Action\ControllerParser
      */
-    public function parse() : ParserActionInterface
+    public function parse(): ParserActionInterface
     {
         $this->content = $this->fetchContent();
 
@@ -49,7 +46,7 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return array
      */
-    protected function fetchContent() : ?array
+    protected function fetchContent(): ?array
     {
         if ($this->isViewController()) {
             return $this->resolveViewControllerInvokeMethod();
@@ -57,7 +54,7 @@ class ControllerParser implements ParserActionInterface
 
         $method = $this->resolveMethod();
 
-        if (! $method) {
+        if (!$method) {
             return null;
         }
 
@@ -71,7 +68,7 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return ReflectionMethod
      */
-    protected function resolveMethod() : ?ReflectionMethod
+    protected function resolveMethod(): ?ReflectionMethod
     {
         try {
             return (new ReflectionClass($this->getName()))
@@ -90,9 +87,9 @@ class ControllerParser implements ParserActionInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isViewController() : bool
+    public function isViewController(): bool
     {
         return strpos($this->getName(), 'ViewController') !== false;
     }
@@ -100,15 +97,15 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return array
      */
-    public function resolveViewControllerInvokeMethod() : array
+    public function resolveViewControllerInvokeMethod(): array
     {
-        $this->route->bind(new Request);
+        $this->route->bind(new Request());
 
         $params = $this->route->parametersWithoutNulls();
 
         if (array_key_exists('view', $params)) {
             return [
-                'view' => $params['view']
+                'view' => $params['view'],
             ];
         }
 
@@ -118,7 +115,7 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return string
      */
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return Arr::last(explode('@', $this->route->getAction('uses')));
     }
@@ -126,7 +123,7 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return string
      */
-    public function getName() : string
+    public function getName(): string
     {
         return Arr::first(explode('@', $this->route->getAction('controller')));
     }
@@ -134,7 +131,7 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return array
      */
-    public function getContent() : ?array
+    public function getContent(): ?array
     {
         return $this->content;
     }
@@ -142,7 +139,7 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return array
      */
-    public function getErrors() : ?array
+    public function getErrors(): ?array
     {
         return $this->errors;
     }
@@ -150,11 +147,11 @@ class ControllerParser implements ParserActionInterface
     /**
      * @return array
      */
-    public function getRoute() : ?array
+    public function getRoute(): ?array
     {
         return array_merge($this->route->getAction(), [
             'methods' => $this->route->methods(),
-            'uri' => $this->route->uri
+            'uri'     => $this->route->uri,
         ]);
     }
 }

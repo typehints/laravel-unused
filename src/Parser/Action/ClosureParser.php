@@ -33,7 +33,7 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return TypeHints\Unused\Parser\Action\ParserActionInterface
      */
-    public function parse() : ParserActionInterface
+    public function parse(): ParserActionInterface
     {
         $this->content = $this->fetchContent();
 
@@ -43,7 +43,7 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return ReflectionFunction
      */
-    protected function resolveMethod() : ReflectionFunction
+    protected function resolveMethod(): ReflectionFunction
     {
         return new ReflectionFunction($this->getClosure());
     }
@@ -51,7 +51,7 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return array
      */
-    protected function fetchContent() : array
+    protected function fetchContent(): array
     {
         $method = $this->resolveMethod();
 
@@ -65,7 +65,7 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return array
      */
-    public function getContent() : array
+    public function getContent(): array
     {
         return $this->content;
     }
@@ -73,7 +73,7 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return array
      */
-    public function getErrors() : array
+    public function getErrors(): array
     {
         return $this->errors;
     }
@@ -81,7 +81,7 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return callable
      */
-    public function getClosure() : callable
+    public function getClosure(): callable
     {
         return $this->route->getAction('uses');
     }
@@ -89,11 +89,11 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return array
      */
-    public function getRoute() : array
+    public function getRoute(): array
     {
         return array_merge($this->route->getAction(), [
             'methods' => $this->route->methods(),
-            'uri' => $this->route->uri
+            'uri'     => $this->route->uri,
         ]);
     }
 }

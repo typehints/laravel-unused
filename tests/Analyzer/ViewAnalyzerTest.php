@@ -6,5 +6,4 @@ use TypeHints\Unused\Tests\TestCase;
 
 class ViewAnalyzerTest extends TestCase
 {
-
 }

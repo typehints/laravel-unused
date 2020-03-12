@@ -27,11 +27,9 @@ returnview('welcome');
     protected function routeClosureExample()
     {
         return new Route(['GET'], '/', [
-            'uses' =>
-                function () {
-                    return view('welcome');
-                }
-            ,
+            'uses' => function () {
+                return view('welcome');
+            },
         ]);
     }
 }

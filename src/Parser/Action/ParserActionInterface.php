@@ -4,5 +4,5 @@ namespace TypeHints\Unused\Parser\Action;
 
 interface ParserActionInterface
 {
-    public function parse() : ParserActionInterface;
+    public function parse(): self;
 }

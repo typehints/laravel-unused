@@ -1,9 +1,9 @@
 <?php
+
 namespace TypeHints\Unused\Parser;
 
 use Illuminate\Filesystem\Filesystem;
 use TypeHints\Unused\Parser\Action\ParserActionInterface;
-use TypeHints\Unused\Parser\ParserInterface;
 
 class ViewParser implements ParserInterface
 {
@@ -15,7 +15,7 @@ class ViewParser implements ParserInterface
     /**
      * @var array
      */
-    protected $parent= [];
+    protected $parent = [];
 
     /**
      * @var array
@@ -33,17 +33,17 @@ class ViewParser implements ParserInterface
     protected $viewAliases = [
         'View::make(',
         'view(',
-        'view->make('
+        'view->make(',
     ];
 
     /**
      * @var array
      */
     protected $ignoredStrings = [
-        "(",
-        ")",
-        ";",
-        "'"
+        '(',
+        ')',
+        ';',
+        "'",
     ];
 
     /**
@@ -53,7 +53,7 @@ class ViewParser implements ParserInterface
         '@include(',
         '@includeIf(',
         '@extends(',
-        'Blade::include('
+        'Blade::include(',
     ];
 
     /**
@@ -62,7 +62,7 @@ class ViewParser implements ParserInterface
     protected $statementBladeDirectives = [
         '@includeWhen(',
         '@includeUnless(',
-        '@includeFirst('
+        '@includeFirst(',
     ];
 
     /**
@@ -76,7 +76,7 @@ class ViewParser implements ParserInterface
     /**
      * @return ParserInterface
      */
-    public function parse() : ParserInterface
+    public function parse(): ParserInterface
     {
         $this->parent = $this->retrieveViewsFromMethod();
 
@@ -87,7 +87,7 @@ class ViewParser implements ParserInterface
         return $this;
     }
 
-    public function retrieveChildrenFromNestedViews() : void
+    public function retrieveChildrenFromNestedViews(): void
     {
         $this->children = $this->loopForNestedViews($this->parent);
 
@@ -97,7 +97,7 @@ class ViewParser implements ParserInterface
     /**
      * @param array $children
      */
-    public function resolveChildrenHierarchy(array $children) : void
+    public function resolveChildrenHierarchy(array $children): void
     {
         collect($children)->each(function ($value, $key) {
             if (is_string($key)) {
@@ -108,16 +108,16 @@ class ViewParser implements ParserInterface
         });
     }
 
-    public function loopForNestedViews($views) : array
+    public function loopForNestedViews($views): array
     {
         $generated = [];
 
-        if (! is_array($views)) {
+        if (!is_array($views)) {
             return $this->loopForNestedViews($this->retrieveNestedViews($views));
         }
 
         foreach ($views as $view) {
-            if (! empty($this->loopForNestedViews($view))) {
+            if (!empty($this->loopForNestedViews($view))) {
                 $generated[$view][] = $this->loopForNestedViews($view);
             } else {
                 $generated[$view] = $this->loopForNestedViews($view);
@@ -130,13 +130,13 @@ class ViewParser implements ParserInterface
     /**
      * @return array
      */
-    protected function retrieveViewsFromMethod() : array
+    protected function retrieveViewsFromMethod(): array
     {
         $views = [];
 
         $content = $this->action->getContent();
 
-        if (! $content) {
+        if (!$content) {
             return [];
         }
 
@@ -152,7 +152,7 @@ class ViewParser implements ParserInterface
                     $view = $this->getViewFromLine($line, $viewAlias);
 
                     if (empty($view)) {
-                        $view = $this->getViewFromLine($content[$key+1], $viewAlias);
+                        $view = $this->getViewFromLine($content[$key + 1], $viewAlias);
                     }
 
                     $views[] = $this->retrieveViewFromLine($view, $viewAlias);
@@ -177,9 +177,10 @@ class ViewParser implements ParserInterface
     /**
      * @param string $line
      * @param string $viewAlias
+     *
      * @return string
      */
-    protected function retrieveViewFromLine(string $view, string $viewAlias) : string
+    protected function retrieveViewFromLine(string $view, string $viewAlias): string
     {
         if (strpos($view, ')') !== false) {
             $view = substr($view, 0, strpos($view, ')'));
@@ -198,9 +199,10 @@ class ViewParser implements ParserInterface
 
     /**
      * @param string $view
+     *
      * @return array
      */
-    protected function retrieveNestedViews(string $view) : array
+    protected function retrieveNestedViews(string $view): array
     {
         $views = [];
 
@@ -220,17 +222,18 @@ class ViewParser implements ParserInterface
     }
 
     /**
-     * @param  string $bladeDirective
-     * @param  string $content
+     * @param string $bladeDirective
+     * @param string $content
+     *
      * @return array
      */
-    protected function getPositionOfBladeDirectives(string $bladeDirective, ?string $content) : array
+    protected function getPositionOfBladeDirectives(string $bladeDirective, ?string $content): array
     {
         $positions = [];
 
         $lastPos = 0;
 
-        while (($lastPos = strpos($content, $bladeDirective, $lastPos))!== false) {
+        while (($lastPos = strpos($content, $bladeDirective, $lastPos)) !== false) {
             $positions[] = $lastPos;
             $lastPos = $lastPos + strlen($bladeDirective);
         }
@@ -239,17 +242,18 @@ class ViewParser implements ParserInterface
     }
 
     /**
-     * @param  string $view
+     * @param string $view
+     *
      * @return string
      */
-    public function getViewContent(string $view) : ?string
+    public function getViewContent(string $view): ?string
     {
         $filesystem = new Filesystem();
 
         foreach (config('view.paths') as $viewPath) {
-            $path = $viewPath . '/'. str_replace('.', '/', $view) . '.blade.php';
+            $path = $viewPath.'/'.str_replace('.', '/', $view).'.blade.php';
 
-            if (! $filesystem->exists($path)) {
+            if (!$filesystem->exists($path)) {
                 // View Is Missing
                 break;
             }
@@ -263,13 +267,13 @@ class ViewParser implements ParserInterface
     /**
      * @return array
      */
-    public function getViews() : array
+    public function getViews(): array
     {
         return collect(array_merge($this->childrenViews, $this->parent))
             ->unique()
             ->flatMap(function ($view) {
                 return [
-                $view => 0
+                    $view => 0,
                 ];
             })->toArray();
     }
@@ -277,7 +281,7 @@ class ViewParser implements ParserInterface
     /**
      * @return ParserActionInterface
      */
-    public function getAction() : ParserActionInterface
+    public function getAction(): ParserActionInterface
     {
         return $this->action;
     }
@@ -285,7 +289,7 @@ class ViewParser implements ParserInterface
     /**
      * @return array
      */
-    public function getParent() : array
+    public function getParent(): array
     {
         return $this->parent;
     }
@@ -293,7 +297,7 @@ class ViewParser implements ParserInterface
     /**
      * @return array
      */
-    public function getChildren() : array
+    public function getChildren(): array
     {
         return $this->children;
     }
