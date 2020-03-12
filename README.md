@@ -1,4 +1,7 @@
 # Detect Unused Views on your Laravel Application
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Quality Score](https://scrutinizer-ci.com/g/typehints/laravel-unused/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/typehints/laravel-unused/)
+[![StyleCI](https://github.styleci.io/repos/246931421/shield?branch=master)](https://styleci.io/repos/246931421)
 
 <p align="center"><img src="/demo.png?raw=true"></p>
 
