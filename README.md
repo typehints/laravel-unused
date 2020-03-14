@@ -46,6 +46,7 @@ If you discover any security related issues, please email security@typehints.com
 ## Credits
 
 - [TypeHints](https://github.com/typehints)
+- [All Contributors](https://github.com/typehints/laravel-unused/contributors)
 
 ## License
 
