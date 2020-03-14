@@ -3,6 +3,10 @@
 [![Quality Score](https://scrutinizer-ci.com/g/typehints/laravel-unused/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/typehints/laravel-unused/)
 [![StyleCI](https://github.styleci.io/repos/246931421/shield?branch=master)](https://styleci.io/repos/246931421)
 
+## Introduction
+LaraveUnused provides a UI where you can preview unused views from scanning all the routes on your application.
+It also allows you to see more data about used views like the action code where the view is being used /  the partials that are used on a specific view / the views that a route is triggering...
+
 <p align="center"><img src="/demo.png?raw=true"></p>
 
 ## Installation
@@ -19,11 +23,20 @@ You have to publish the package configuration using:
 php artisan vendor:publish --provider=TypeHints\\Unused\\ServiceProvider
 ```
 
-This will publish a file called `laravel-unused.php` in your `config` folder to adjust a few config values.
+This will publish `config/laravel-unused.php` and `vendor/laravel-unused`
 
 ## Usage
 
 You just need to visit `/laravelunused` if you didn't change `route_prefix` in your config (make sure debug mode is true)
+
+You can also add your own middelwares on `config/laravel-unused.php`
+
+``` php
+    'middleware' => [
+        TypeHints\Unused\Middleware\LaravelUnusedMiddleware::class,
+        // Custom Middleware
+    ],
+```
 
 ## Testing
 
