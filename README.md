@@ -41,11 +41,11 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email mohamed@typehints.com instead of using the issue tracker.
+If you discover any security related issues, please email security@typehints.com instead of using the issue tracker.
 
 ## Credits
 
-- [Mohamed Benhida](https://github.com/simoebenhida)
+- [TypeHints](https://github.com/typehints)
 
 ## License
 
