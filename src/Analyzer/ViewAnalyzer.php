@@ -102,7 +102,9 @@ class ViewAnalyzer
             }
         }
 
-        return $views;
+        return array_filter($views, function ($view) {
+            return !in_array($view, config('laravelunused.ignored_views'));
+        });
     }
 
     /**
