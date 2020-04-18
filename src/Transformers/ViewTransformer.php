@@ -31,7 +31,7 @@ class ViewTransformer
         return [
             'route'    => $this->getRoute(),
             'views'    => $this->getViews(),
-            'children' => $this->viewParser->getallheaders()tChildren(),
+            'children' => $this->viewParser->getChildren(),
             'parent'   => $this->getParent(),
             'action'   => $this->getActionContent(),
             'errors'   => $this->getErrors(),
