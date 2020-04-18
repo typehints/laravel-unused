@@ -26,7 +26,7 @@ class ViewTransformer
         $this->views = $this->viewParser->getViews();
     }
 
-    public function transform()
+    public function transform() : array
     {
         return [
             'route'    => $this->getRoute(),
@@ -57,7 +57,7 @@ class ViewTransformer
     /**
      * @return string
      */
-    public function getActionContent()
+    public function getActionContent() : ?string
     {
         $actionContent = $this->viewParser->getAction()->getContent();
 
@@ -88,7 +88,7 @@ class ViewTransformer
      * @param string $view
      * @param int    $count
      */
-    public function setViewCount(string $view, int $count)
+    public function setViewCount(string $view, int $count) : void
     {
         $this->views[$view] = $count;
     }

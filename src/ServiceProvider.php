@@ -51,15 +51,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function publishAssets(): void
     {
-        // if (file_exists(public_path('vendor/laravelunused'))) {
-        //     return;
-        // }
-
-        // (new Filesystem)->link(
-        //     __DIR__.'/../public',
-        //     public_path('vendor/laravelunused')
-        // );
-
         $this->publishes([__DIR__.'/../public' => public_path('vendor/laravelunused')], 'laravelunused-assets');
     }
 
