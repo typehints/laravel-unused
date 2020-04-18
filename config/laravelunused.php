@@ -8,5 +8,5 @@ return [
     ],
 
     'ignored_views' => [
-    ]
+    ],
 ];

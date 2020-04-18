@@ -2,7 +2,6 @@
 
 namespace TypeHints\Unused;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
