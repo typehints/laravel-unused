@@ -64,6 +64,7 @@ class CheckForUnusedViews extends Command
 
         if (!$unusedViews) {
             $io->success('We detected '.count($unusedViews).' unused views!');
+
             return;
         }
 
