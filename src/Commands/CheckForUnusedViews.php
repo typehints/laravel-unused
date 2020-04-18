@@ -63,11 +63,11 @@ class CheckForUnusedViews extends Command
         }, $this->viewAnalyzer->getUnusedViews());
 
         if (!$unusedViews) {
-            $io->success('We detected '. sizeof($unusedViews) .' unused views!');
+            $io->success('We detected '.count($unusedViews).' unused views!');
             return;
         }
 
-        $io->error('We detected '. sizeof($unusedViews) .' unused views!');
+        $io->error('We detected '.count($unusedViews).' unused views!');
 
         $table = new Table($output);
         $table->setHeaders(['Unused Views'])

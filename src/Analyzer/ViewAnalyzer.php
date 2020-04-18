@@ -27,7 +27,7 @@ class ViewAnalyzer
         $this->router = $router;
     }
 
-    public function analyze(): ViewAnalyzer
+    public function analyze(): self
     {
         $this->usedViews = $this->fetchUsedViews();
 
