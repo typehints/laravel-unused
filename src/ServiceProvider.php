@@ -3,6 +3,7 @@
 namespace TypeHints\Unused;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use TypeHints\Unused\Commands\CheckForUnusedViews;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -22,6 +23,8 @@ class ServiceProvider extends BaseServiceProvider
         $this->publishAssets();
 
         $this->publishConfig();
+
+        $this->publishCommands();
     }
 
     public function publishRoutes()
@@ -59,5 +62,14 @@ class ServiceProvider extends BaseServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([__DIR__.'/../config/laravelunused.php' => config_path('laravelunused.php')], 'config');
+    }
+
+    protected function publishCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CheckForUnusedViews::class,
+            ]);
+        }
     }
 }

@@ -27,7 +27,7 @@ class ViewAnalyzer
         $this->router = $router;
     }
 
-    public function analyze()
+    public function analyze(): self
     {
         $this->usedViews = $this->fetchUsedViews();
 
@@ -36,7 +36,7 @@ class ViewAnalyzer
         return $this;
     }
 
-    public function delete(string $view)
+    public function delete(string $view): void
     {
         $filesystem = new Filesystem();
 
@@ -51,7 +51,7 @@ class ViewAnalyzer
         }
     }
 
-    protected function fetchUnusedViews()
+    protected function fetchUnusedViews(): array
     {
         $flattenUsedViews = collect($this->usedViews)->map(function ($viewTransformer) {
             return array_keys($viewTransformer->getViews());
