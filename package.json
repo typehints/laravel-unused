@@ -22,7 +22,7 @@
     },
     "dependencies": {
         "axios": "^0.19.2",
-        "prismjs": "^1.19.0",
+        "prismjs": "^1.21.0",
         "sweetalert2": "^9.9.0",
         "vue-code-highlight": "^0.7.4",
         "vue-json-pretty": "^1.6.3",
