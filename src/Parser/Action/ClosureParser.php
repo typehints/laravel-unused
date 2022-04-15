@@ -41,15 +41,15 @@ class ClosureParser implements ParserActionInterface
         return $this;
     }
 
-    /**
-     * @return ReflectionFunction
-     */
+	/**
+	 * @return ReflectionFunction
+	 * @throws \ReflectionException
+	 */
     protected function resolveMethod(): ReflectionFunction
     {
-	    $method=$this->getClosure();
+	    $method = $this->getClosure();
 		if(is_callable($method)) return new ReflectionFunction($method);
-		if(is_string($method))
-			return new ReflectionFunction(unserialize($method)->getClosure());
+	    throw new \ReflectionException("Not callable!");
     }
 
     /**
@@ -85,9 +85,10 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return callable
      */
-    public function getClosure()
+    public function getClosure(): callable
     {
-        return $this->route->getAction('uses');
+		$method = $this->route->getAction('uses');
+	    return is_string($method) ? unserialize($method)->getClosure() : $method;
     }
 
     /**
