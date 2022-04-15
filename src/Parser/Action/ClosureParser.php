@@ -3,6 +3,7 @@
 namespace TypeHints\Unused\Parser\Action;
 
 use Illuminate\Routing\Route;
+use Laravel\SerializableClosure\SerializableClosure;
 use ReflectionFunction;
 
 class ClosureParser implements ParserActionInterface
@@ -45,7 +46,10 @@ class ClosureParser implements ParserActionInterface
      */
     protected function resolveMethod(): ReflectionFunction
     {
-        return new ReflectionFunction($this->getClosure());
+	    $method=$this->getClosure();
+		if(is_callable($method)) return new ReflectionFunction($method);
+		if(is_string($method))
+			return new ReflectionFunction(unserialize($method)->getClosure());
     }
 
     /**
@@ -81,7 +85,7 @@ class ClosureParser implements ParserActionInterface
     /**
      * @return callable
      */
-    public function getClosure(): callable
+    public function getClosure()
     {
         return $this->route->getAction('uses');
     }

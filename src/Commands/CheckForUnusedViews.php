@@ -52,6 +52,7 @@ class CheckForUnusedViews extends Command
         $this->checkForUnusedViews($input, $output);
 
         $output->writeln('✨ See something that needs to be improved? <options=bold>Create an issue</> or send us a <options=bold>pull request</>: <fg=cyan;options=bold>https://github.com/typehints/laravel-unused</>');
+		return 0;
     }
 
     public function checkForUnusedViews(InputInterface $input, OutputInterface $output)
